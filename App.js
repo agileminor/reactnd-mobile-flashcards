@@ -11,6 +11,9 @@ import { TabNavigator, StackNavigator } from 'react-navigation'
 import { purple, white } from './utils/colors'
 import { Constants } from 'expo'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
 
 function FlashStatusBar ({backgroundColor, ...props}) {
   return (
@@ -110,10 +113,12 @@ const MainNavigator = StackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <View style={{flex: 1}}>
-        <FlashStatusBar backgroundColor={purple} barStyle="light-content" />
-        <MainNavigator/>
-      </View>
+      <Provider store={createStore(reducer)}>
+        <View style={{flex: 1}}>
+          <FlashStatusBar backgroundColor={purple} barStyle="light-content" />
+          <MainNavigator/>
+        </View>
+      </Provider>
     )
   }
 }

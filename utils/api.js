@@ -1,23 +1,33 @@
 import {AsyncStorage} from 'react-native'
-import {CALENDAR_STORAGE_KEY, formatCalenderResults} from './_calendar.js'
 
-export function submitEntry({entry, key}) {
-    return AsyncStorage.mergeItem(CALENDAR_STORAGE_KEY, JSON.stringify({
-        [key]: entry,
-    }))
-}
-
-export function removeEntry(key) {
-    return AsyncStorage.getItem(CALENDAR_STORAGE_KEY)
+export function getDeck(deck_name) {
+    return AsyncStorage.getItem('flashcard-decks')
         .then((results) => {
             const data = JSON.parse(results)
-            data[key] = undefined
-            delete data[key]
-            AsyncStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify(data))
+            return data[deck_name]
         })
 }
 
-export function fetchCalendarResults() {
-    return AsyncStorage.getItem(CALENDAR_STORAGE_KEY)
-        .then(formatCalenderResults)
+export function saveDeck(deck) {
+    return AsyncStorage.mergeItem('flashcard-decks', JSON.stringify({
+        [deck.title]: deck,
+    }))
+}
+
+function dummyDeck() {
+    const empty_decks = {}
+    return empty_decks
+}
+
+function formatDecks(results) {
+    return results
+}
+
+export function getDecks() {
+    return AsyncStorage.getItem('flashcard-decks')
+        .then((results) => {
+            return results === null
+            ? dummyDeck()
+            : formatDecks(JSON.parse(results))
+        })
 }
