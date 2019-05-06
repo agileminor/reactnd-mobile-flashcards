@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import {NavigationEvents} from 'react-navigation'
 import Deck from './Deck'
-import {getDecks} from '../utils/api'
+import {getDecks, clearStorage} from '../utils/api'
 import { connect } from 'react-redux'
 import { receiveDecks } from '../actions'
 
@@ -34,22 +34,14 @@ class DeckList extends Component {
     };
     componentDidMount () {
         const { dispatch } = this.props
+//        clearStorage()
         getDecks()
             .then((decks) => dispatch(receiveDecks(decks)))
     }
     render () {
         const {decks} = this.props;
-        console.log('in decklist')
-        console.log(decks)
         return (
             <View>
-            {/*
-                <NavigationEvents
-                    onWillFocus = {payload => {
-                        console.log("will focus", payload)
-                    }}
-                />
-            */}
             {Object.keys(decks).map((deck_id) => (
                 <Deck key= {decks[deck_id].title} navigation= {this.props.navigation} deck={decks[deck_id]} />
                 ))

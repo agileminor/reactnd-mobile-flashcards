@@ -11,7 +11,7 @@ class Deck extends Component {
             <View>
                 <TouchableOpacity style={styles.Button} onPress={() => this.props.navigation.navigate('DeckView',
                     {
-                        deck_id:{deck_id}
+                        deck_id:deck_id
                     })}>
                     <Text style={styles.ButtonText}>{deck.title} - {deck.questions.length} cards</Text>
                 </TouchableOpacity>

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { StyleSheet, Text, View, Button, TextInput, Keyboard, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { addQuestion } from '../actions'
+import {addCardToDeck} from '../utils/api'
 
 class NewQuestion extends Component {
     state = {
@@ -27,6 +28,7 @@ class NewQuestion extends Component {
             answer: answer
         }
         dispatch(addQuestion(deck.title, new_question))
+        addCardToDeck(deck.title, new_question)
         //TODO add storage of updated deck
         Keyboard.dismiss()
         this.props.navigation.goBack()

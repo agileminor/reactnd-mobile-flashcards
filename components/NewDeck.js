@@ -2,25 +2,27 @@ import React, {Component} from 'react'
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, Keyboard } from 'react-native'
 import { addDeck } from '../actions'
 import { connect } from 'react-redux'
+import {saveDeck} from '../utils/api'
 
 class NewDeck extends Component {
     state = {
-        deck_title: ''
+        deck_id: ''
     }
-    handleChange = (deck_title) => {
+    handleChange = (deck_id) => {
 
         this.setState(() => ({
-            deck_title
+            deck_id
         }))
     }
     handleSubmit = () => {
       const {dispatch} = this.props
-        const {deck_title} = this.state
-        //this.props.onAddDeck(new_deck)
-        //TODO add storage of new deck
-        dispatch(addDeck(deck_title))
+        const {deck_id} = this.state
+        dispatch(addDeck(deck_id))
+        saveDeck(deck_id)
         Keyboard.dismiss()
-        this.props.navigation.navigate('DeckList')
+        this.props.navigation.navigate('DeckView', {
+          deck_id: deck_id
+        })
     }
     render() {
         return(
@@ -28,7 +30,7 @@ class NewDeck extends Component {
                  <TextInput
                         style={styles.textInput}
                         placeholder="Enter deck name here"
-                        value={this.state.deck_title}
+                        value={this.state.deck_id}
                         onChangeText={this.handleChange}
                         onBlur={Keyboard.dismiss}
                         maxLength={100}

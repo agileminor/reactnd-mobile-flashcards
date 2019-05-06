@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 class DeckView extends Component {
     render() {
-        const {deck_id} = this.props.navigation.getParam('deck_id')
+        const {deck_id} = this.props.navigation.state.params
         const {decks} = this.props
         const deck = decks[deck_id]
         return (

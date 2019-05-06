@@ -17,15 +17,11 @@ export default function decks ( state={}, action) {
             }
         case ADD_QUESTION:
             const {deck_id, question } = action
-            console.log(action)
-            console.log(state)
             let updated_questions = state[deck_id].questions.concat(question)
             let updated_deck = {
                 ...state[deck_id],
                 questions: updated_questions
             }
-            console.log(updated_deck)
-            console.log({...state, [deck_id]: updated_deck})
             return {
                 ...state,
                 [deck_id]: updated_deck,
