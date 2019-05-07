@@ -1,5 +1,9 @@
 import React, {Component} from 'react'
 import { StyleSheet, Text, View, Button} from 'react-native'
+import {
+  clearLocalNotification,
+  setLocalNotification
+} from '../utils/helpers'
 
 class QuizView extends Component {
     state = {
@@ -16,6 +20,8 @@ class QuizView extends Component {
             num_incorrect = num_incorrect + 1
         if ((deck.questions.length - index) === 1) {
             const percent = num_correct / deck.questions.length * 100
+            clearLocalNotification()
+                .then(setLocalNotification)
             this.props.navigation.replace('QuizScore',
                     {
                         percent: percent,
